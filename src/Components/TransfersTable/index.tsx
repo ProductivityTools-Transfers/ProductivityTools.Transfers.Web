@@ -1,4 +1,16 @@
+import React, { useState, useEffect, useContext } from "react";
+import * as api from '../../Services/apiService' 
+
 export function TransfersTable() {
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await api.echo();
+      // setJournalPath(data);
+      // console.log(data);
+    };
+    fetchData();
+  }, []);
+
   return (
     <table>
       <thead>
@@ -10,11 +22,11 @@ export function TransfersTable() {
         </tr>
       </thead>
       <tbody>
-        <tr>            
-          <td >1</td>
-          <td >1</td>
-          <td >1</td>
-          <td >1</td>
+        <tr>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
         </tr>
       </tbody>
     </table>

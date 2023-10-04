@@ -6,7 +6,7 @@ export type Config = {
 
 const dev = {
   //clientId:"devmeetingsweb",
-  pathBase: "http://localhost:5002/api/",
+  pathBase: "http://localhost:5288",
   //stsAuthority : 'https://identityserver.productivitytools.top:8010/',
   //clientRoot : 'http://localhost:3000/',
 };
