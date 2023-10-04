@@ -5,10 +5,10 @@ export function TransfersTable() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await api.echo();
-      // setJournalPath(data);
-      // console.log(data);
+      const data2 = await api.getTransfers();
     };
     fetchData();
+    api.getTransfers();
   }, []);
 
   return (

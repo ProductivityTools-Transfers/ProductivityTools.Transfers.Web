@@ -7,7 +7,7 @@ async function echo() {
 }
 
 async function getTransfers() {
-  axios.defaults.withCredentials = true;
+  
   const data = { Name: "Proxy" };
   const response = await axios.post(`${config.pathBase}/Transfer/List`, data);
   return response.data;
