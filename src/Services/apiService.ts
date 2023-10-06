@@ -7,10 +7,15 @@ async function echo() {
 }
 
 async function getTransfers() {
-  
   const data = { Name: "Proxy" };
   const response = await axios.post(`${config.pathBase}/Transfer/List`, data);
   return response.data;
 }
 
-export { getTransfers, echo };
+async function getAccounts() {
+  const data = { Name: "Proxy" };
+  const response = await axios.post(`${config.pathBase}/Account/List`, data);
+  return response.data;
+}
+
+export { getTransfers, getAccounts, echo };
