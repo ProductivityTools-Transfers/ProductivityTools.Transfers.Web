@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import * as api from "../../Services/apiService";
-
-interface Account {
-  AccountId: number;
-  Name: string;
-}
+import { Link } from "react-router-dom";
+import  Account from "../Objects/Account";
 
 export function AccountList() {
   const [accountList, setAccountList] = useState<Account[]>();
@@ -18,21 +15,26 @@ export function AccountList() {
   }, []);
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>AccountId</th>
-          <th>Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        {accountList?.map((x) => (
+    <>
+      <span>Account list:</span>
+      <Link to="/AccountEdit">Add New Account</Link>
+
+      <table>
+        <thead>
           <tr>
-            <td>{x.AccountId}</td>
-            <td>{x.Name}</td>
+            <th>AccountId</th>
+            <th>Name</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {accountList?.map((x) => (
+            <tr>
+              <td>{x.AccountId}</td>
+              <td>{x.Name}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
   );
 }
