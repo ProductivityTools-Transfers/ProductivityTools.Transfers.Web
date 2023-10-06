@@ -1,5 +1,6 @@
 import axios from "axios";
 import { config } from "../Config";
+import Account from "../Objects/Account";
 
 async function echo() {
   const response = await axios.get(`${config.pathBase}/Transfer/echo?name=pawel`);
@@ -18,4 +19,10 @@ async function getAccounts() {
   return response.data;
 }
 
-export { getTransfers, getAccounts, echo };
+async function addAccount(account: Account) {
+  //const data = { Name: "Proxy" };
+  const response = await axios.post(`${config.pathBase}/Account/Add`, account);
+  return response.data;
+}
+
+export { getTransfers, getAccounts, addAccount, echo };
