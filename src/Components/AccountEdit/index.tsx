@@ -4,7 +4,6 @@ import Account from "../../Objects/Account";
 import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-
 export function AccountEdit() {
   let navigate = useNavigate();
 
@@ -17,11 +16,11 @@ export function AccountEdit() {
   //     api.getTransfers();
   //   }, []);
 
-  const [account, setAccount] = useState<Account>({ AccountId: null, Name: "emepty" });
+  const [account, setAccount] = useState<Account>({ accountId: null, name: "emepty", transfers: null });
 
   const changeState = (e: any) => {
     console.log(e);
-    setAccount({ ...account, Name: e.target.value } as Account);
+    setAccount({ ...account, name: e.target.value } as Account);
   };
 
   const add = async () => {
@@ -34,7 +33,7 @@ export function AccountEdit() {
   };
   return (
     <div>
-      Name: <input value={account?.Name || "empty"} onChange={changeState}></input>
+      Name: <input value={account?.name || "empty"} onChange={changeState}></input>
       <br />
       <button onClick={add}>Add</button>
     </div>

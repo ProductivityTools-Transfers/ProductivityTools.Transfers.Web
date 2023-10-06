@@ -23,6 +23,7 @@ export function Home() {
       <TransfersTable />
       {/* <AccountList /> */}
       <Link to="/AccountList">AccountList</Link>
+      <Link to="/TransferEdit">AddTransfer</Link>
     </div>
   );
 }

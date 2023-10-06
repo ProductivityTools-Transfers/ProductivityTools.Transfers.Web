@@ -8,6 +8,7 @@ import { TransfersTable } from "./Components/TransfersTable";
 import { AccountList } from "./Components/AccountList";
 import { AccountEdit } from "./Components/AccountEdit";
 import { Home } from "./Components/Home";
+import { TransferEdit } from "./Components/TransferEdit";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/AccountList" element={<AccountList />} />
           <Route path="/" element={<Home />} />
           <Route path="/AccountEdit" element={<AccountEdit />} />
+          <Route path="/TransferEdit" element={<TransferEdit />} />
         </Routes>
       </BrowserRouter>
     </div>
