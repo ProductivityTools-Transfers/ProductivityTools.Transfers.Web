@@ -23,17 +23,23 @@ export function AccountList() {
       <table>
         <thead>
           <tr>
-            <th>xx</th>
             <th>AccountId</th>
             <th>Name</th>
+            <th>Pillow</th>
+            <th>Type</th>
+            <th>Number</th>
+
           </tr>
         </thead>
         <tbody>
           {accountList?.map((x) => (
             <tr key={x.accountId}>
-              <td>xx</td>
               <td>{x.accountId}</td>
               <td>{x.name}</td>
+              <td>{x.pillow}</td>
+              <td>{x.type}</td>
+              <td>{x.number}</td>
+
             </tr>
           ))}
         </tbody>

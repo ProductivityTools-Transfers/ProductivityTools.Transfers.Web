@@ -17,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/AccountList" element={<AccountList />} />
           <Route path="/" element={<Home />} />
+          <Route path="/Home" element={<Home />} />
           <Route path="/AccountEdit" element={<AccountEdit />} />
           <Route path="/TransferEdit" element={<TransferEdit />} />
         </Routes>

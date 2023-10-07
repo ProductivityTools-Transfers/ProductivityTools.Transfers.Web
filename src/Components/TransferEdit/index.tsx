@@ -8,14 +8,15 @@ import Transfer from "../../Objects/Transfer";
 export function TransferEdit() {
   let navigate = useNavigate();
 
-  //   useEffect(() => {
-  //     const fetchData = async () => {
-  //       const data = await api.echo();
-  //       const data2 = await api.getTransfers();
-  //     };
-  //     fetchData();
-  //     api.getTransfers();
-  //   }, []);
+  const [accountList, setAccountList] = useState<Account[]>();
+  useEffect(() => {
+    const fetchData = async () => {
+      const data2 = await api.getAccounts();
+      console.log(data2);
+      setAccountList(data2);
+    };
+    fetchData();
+  }, []);
 
   const [transfer, setTransfer] = useState<Transfer | null>({
     transferId: null,
@@ -44,19 +45,34 @@ export function TransferEdit() {
   };
   return (
     <div>
-      transferId: <input value={transfer?.transferId || "empty"} onChange={changeState}></input>
+      transferId:<span>{transfer?.transferId || ""}</span>
       <br />
-      pillow: <input name="pillow" value={transfer?.pillow || "empty"} onChange={changeState}></input>
+      Source:
+      <select name="sourceId" id="sourceId" value={String(transfer?.sourceId)} onChange={changeState}>
+        {accountList?.map((x) => {
+          return (
+            <option key={x.accountId} value={String(x.accountId)}>
+              {x.name}
+            </option>
+          );
+        })}
+      </select>
       <br />
-      sourceId: <input name="sourceId" value={transfer?.sourceId || "empty"} onChange={changeState}></input>
+      Target:
+      <select name="targetId" id="targetId" value={String(transfer?.targetId)} onChange={changeState}>
+        {accountList?.map((x) => {
+          return (
+            <option key={x.accountId} value={String(x.accountId)}>
+              {x.name}
+            </option>
+          );
+        })}
+      </select>
+      targetid: <input name="targetId" value={transfer?.targetId || ""} onChange={changeState}></input>
       <br />
-      Source: <input name="sourceId" value={transfer?.sourceId || "empty"} onChange={changeState}></input>
+      target: <input name="targetId" value={transfer?.targetId || ""} onChange={changeState}></input>
       <br />
-      targetid: <input name="targetId" value={transfer?.targetId || "empty"} onChange={changeState}></input>
-      <br />
-      target: <input name="targetId" value={transfer?.targetId || "empty"} onChange={changeState}></input>
-      <br />
-      value: <input name="value" value={transfer?.value || "empty"} onChange={changeState}></input>
+      value: <input name="value" value={transfer?.value || ""} onChange={changeState}></input>
       <br />
       <br />
       <button onClick={add}>Add</button>

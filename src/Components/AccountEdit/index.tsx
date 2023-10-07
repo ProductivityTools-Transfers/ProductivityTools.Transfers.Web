@@ -16,11 +16,18 @@ export function AccountEdit() {
   //     api.getTransfers();
   //   }, []);
 
-  const [account, setAccount] = useState<Account>({ accountId: null, name: "emepty", transfers: null });
+  const [account, setAccount] = useState<Account>({
+    accountId: null,
+    name: "emepty",
+    pillow: 0,
+    type: null,
+    number: null,
+    transfers: null,
+  });
 
   const changeState = (e: any) => {
     console.log(e);
-    setAccount({ ...account, name: e.target.value } as Account);
+    setAccount({ ...account, [e.target.name]: e.target.value } as Account);
   };
 
   const add = async () => {
@@ -33,7 +40,14 @@ export function AccountEdit() {
   };
   return (
     <div>
-      Name: <input value={account?.name || "empty"} onChange={changeState}></input>
+      Name: <input name="name" value={account?.name || "empty"} onChange={changeState}></input>
+      <br />
+      Pillow: <input name="pillow" value={account?.pillow || "empty"} onChange={changeState}></input>
+      <br />
+      Type: <input name="type" value={account?.type || "empty"} onChange={changeState}></input>
+      <br />
+      Number: <input name="number" value={account?.number || "empty"} onChange={changeState}></input>
+      <br />
       <br />
       <button onClick={add}>Add</button>
     </div>
