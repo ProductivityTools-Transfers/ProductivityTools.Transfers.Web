@@ -14,6 +14,12 @@ async function getTransfers() {
   return response.data;
 }
 
+async function getTransfer(item: number) {
+  const data = { transferId: item };
+  const response = await axios.post(`${config.pathBase}/Transfer/TransferItem`, data);
+  return response.data;
+}
+
 async function addTransfer(transfer: Transfer) {
   const data = { Name: "Proxy" };
   const response = await axios.post(`${config.pathBase}/Transfer/TransferAdd`, transfer);
@@ -32,4 +38,4 @@ async function addAccount(account: Account) {
   return response.data;
 }
 
-export { getTransfers,addTransfer, getAccounts, addAccount, echo };
+export { getTransfers, getTransfer, addTransfer, getAccounts, addAccount, echo };

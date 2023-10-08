@@ -17,25 +17,28 @@ export function TransferEdit() {
   let navigate = useNavigate();
   let query = useQuery();
 
-
   const [accountList, setAccountList] = useState<Account[]>();
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchAccounts = async () => {
       const data2 = await api.getAccounts();
-      console.log(data2);
       setAccountList(data2);
-      setTransfer({ ...transfer, sourceId: data2[0].accountId } as Transfer);
-      setTransfer({ ...transfer, targetId: data2[0].accountId } as Transfer);
     };
 
-    fetchData();
+    const fetchTransfer = async () => {
+      const data2 = await api.getTransfer(Number(query.get("transferId")));
+      console.log(data2);
+      setTransfer(data2 as Transfer);
+    };
+
+    fetchAccounts();
+    if (query.get("transferId") != "") {
+      fetchTransfer();
+    } else {
+      if (accountList != undefined) {
+        setTransfer({ ...transfer, sourceId: accountList[0].accountId } as Transfer);
+      }
+    }
   }, []);
-
-  useEffect(() => {
-    console.log("useeffect in query")
-    console.log(query.get("transferId"));
-
-  }, [query]);
 
   const [transfer, setTransfer] = useState<Transfer | null>({
     transferId: null,
@@ -49,9 +52,9 @@ export function TransferEdit() {
   });
 
   const changeState = (e: any) => {
-    console.log(e);
-    console.log(e.target.name);
-    console.log(e.target.value);
+    // console.log(e);
+    // console.log(e.target.name);
+    // console.log(e.target.value);
     setTransfer({ ...transfer, [e.target.name]: e.target.value } as Transfer);
   };
 
