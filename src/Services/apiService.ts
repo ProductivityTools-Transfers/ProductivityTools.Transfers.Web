@@ -10,25 +10,25 @@ async function echo() {
 
 async function getTransfers() {
   const data = { Name: "Proxy" };
-  const response = await axios.post(`${config.pathBase}/Transfer/List`, data);
+  const response = await axios.post(`${config.pathBase}/Transfer/TransferList`, data);
   return response.data;
 }
 
 async function addTransfer(transfer: Transfer) {
   const data = { Name: "Proxy" };
-  const response = await axios.post(`${config.pathBase}/Transfer/Add`, transfer);
+  const response = await axios.post(`${config.pathBase}/Transfer/TransferAdd`, transfer);
   return response.data;
 }
 
 async function getAccounts() {
   const data = { Name: "Proxy" };
-  const response = await axios.post(`${config.pathBase}/Account/List`, data);
+  const response = await axios.post(`${config.pathBase}/Account/AccountList`, data);
   return response.data;
 }
 
 async function addAccount(account: Account) {
   //const data = { Name: "Proxy" };
-  const response = await axios.post(`${config.pathBase}/Account/Add`, account);
+  const response = await axios.post(`${config.pathBase}/Account/AccountAdd`, account);
   return response.data;
 }
 

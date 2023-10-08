@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import * as api from "./Services/apiService";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
-import logo from "./logo.svg";
 import "./App.css";
 import { TransfersTable } from "./Components/TransfersTable";
 import { AccountList } from "./Components/AccountList";
