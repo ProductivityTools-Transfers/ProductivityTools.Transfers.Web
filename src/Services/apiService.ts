@@ -22,7 +22,7 @@ async function getTransfer(item: number) {
 
 async function addTransfer(transfer: Transfer) {
   const data = { Name: "Proxy" };
-  const response = await axios.post(`${config.pathBase}/Transfer/TransferAdd`, transfer);
+  const response = await axios.post(`${config.pathBase}/Transfer/TransferEdit`, transfer);
   return response.data;
 }
 
@@ -32,10 +32,16 @@ async function getAccounts() {
   return response.data;
 }
 
+async function getAccount(item: number) {
+  const data = { accountId: item };
+  const response = await axios.post(`${config.pathBase}/Account/AccountItem`, data);
+  return response.data;
+}
+
 async function addAccount(account: Account) {
   //const data = { Name: "Proxy" };
   const response = await axios.post(`${config.pathBase}/Account/AccountAdd`, account);
   return response.data;
 }
 
-export { getTransfers, getTransfer, addTransfer, getAccounts, addAccount, echo };
+export { getTransfers, getTransfer, addTransfer, getAccounts, getAccount, addAccount, echo };

@@ -7,6 +7,6 @@ export default interface Transfer {
   targetId: number | null;
   target: Account | null;
   pillow: number | null;
-  value: number | null;
+  value: number;
   transferDay:number|null;
 }

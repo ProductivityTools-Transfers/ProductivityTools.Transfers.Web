@@ -51,6 +51,18 @@ export function TransfersTable() {
             </tr>
           );
         })}
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+            {transferList?.reduce((accumualtor: number, object: Transfer) => {
+              return accumualtor + object.value
+            }, 0)}
+          </td>
+          <td></td>
+          <td></td>
+        </tr>
       </tbody>
     </table>
   );

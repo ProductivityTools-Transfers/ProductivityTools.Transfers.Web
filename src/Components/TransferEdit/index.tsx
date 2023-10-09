@@ -4,14 +4,9 @@ import Account from "../../Objects/Account";
 import { Navigate } from "react-router-dom";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
+import useQuery from "../../Tools/NavigationExtensions";
 
 import Transfer from "../../Objects/Transfer";
-
-function useQuery() {
-  const { search } = useLocation();
-
-  return React.useMemo(() => new URLSearchParams(search), [search]);
-}
 
 export function TransferEdit() {
   let navigate = useNavigate();
@@ -47,7 +42,7 @@ export function TransferEdit() {
     source: null,
     target: null,
     targetId: null,
-    value: null,
+    value: 0,
     transferDay: null,
   });
 
@@ -101,12 +96,12 @@ export function TransferEdit() {
         })}
       </select>{" "}
       <br />
-      value: <input name="value" value={transfer?.value || ""} onChange={changeState}></input>
+      Value: <input name="value" value={transfer?.value || ""} onChange={changeState}></input>
       <br />
-      value: <input name="transferDay" value={transfer?.transferDay || ""} onChange={changeNumberState}></input>
+      Transfer day: <input name="transferDay" value={transfer?.transferDay || ""} onChange={changeNumberState}></input>
       <br />
       <br />
-      <button onClick={add}>Add</button>
+      <button onClick={add}>Add or update</button>
       <div>
         transferId: {transfer?.transferId} <br />
         pillow: {transfer?.pillow}

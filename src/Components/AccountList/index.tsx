@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import * as api from "../../Services/apiService";
 import { Link } from "react-router-dom";
-import  Account from "../../Objects/Account";
+import Account from "../../Objects/Account";
 
 export function AccountList() {
   const [accountList, setAccountList] = useState<Account[]>();
@@ -28,7 +28,7 @@ export function AccountList() {
             <th>Pillow</th>
             <th>Type</th>
             <th>Number</th>
-
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -39,7 +39,17 @@ export function AccountList() {
               <td>{x.pillow}</td>
               <td>{x.type}</td>
               <td>{x.number}</td>
-
+              <td>
+                {" "}
+                <Link
+                  to={{
+                    pathname: "/AccountEdit",
+                    search: "?accountId=" + x.accountId,
+                  }}
+                >
+                  Edit
+                </Link>
+              </td>
             </tr>
           ))}
         </tbody>

@@ -3,18 +3,11 @@ import * as api from "../../Services/apiService";
 import Account from "../../Objects/Account";
 import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import useQuery from "../../Tools/NavigationExtensions";
 
 export function AccountEdit() {
   let navigate = useNavigate();
-
-  //   useEffect(() => {
-  //     const fetchData = async () => {
-  //       const data = await api.echo();
-  //       const data2 = await api.getTransfers();
-  //     };
-  //     fetchData();
-  //     api.getTransfers();
-  //   }, []);
+  let query = useQuery();
 
   const [account, setAccount] = useState<Account>({
     accountId: null,
@@ -24,6 +17,17 @@ export function AccountEdit() {
     number: null,
     transfers: null,
   });
+
+  useEffect(() => {
+    const fetchAccount = async () => {
+      const data2 = await api.getAccount(Number(query.get("accountId")));
+      console.log(data2);
+      setAccount(data2 as Account);
+    };
+    if (query.get("accountId") != "") {
+      fetchAccount();
+    }
+  }, []);
 
   const changeState = (e: any) => {
     console.log(e);
