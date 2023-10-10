@@ -8,8 +8,8 @@ async function echo() {
   return response.data;
 }
 
-async function getTransfers() {
-  const data = { Name: "Proxy" };
+async function getTransfers(item: number | null) {
+  const data = { transferId: item };
   const response = await axios.post(`${config.pathBase}/Transfer/TransferList`, data);
   return response.data;
 }
@@ -40,7 +40,7 @@ async function getAccount(item: number) {
 
 async function addAccount(account: Account) {
   //const data = { Name: "Proxy" };
-  const response = await axios.post(`${config.pathBase}/Account/AccountAdd`, account);
+  const response = await axios.post(`${config.pathBase}/Account/AccountEdit`, account);
   return response.data;
 }
 

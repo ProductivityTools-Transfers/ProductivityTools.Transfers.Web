@@ -44,13 +44,13 @@ export function AccountEdit() {
   };
   return (
     <div>
-      Name: <input name="name" value={account?.name || "empty"} onChange={changeState}></input>
+      Name: <input name="name" value={account?.name || ""} onChange={changeState}></input>
       <br />
-      Pillow: <input name="pillow" value={account?.pillow || "empty"} onChange={changeState}></input>
+      Pillow: <input name="pillow" value={account?.pillow || ""} onChange={changeState}></input>
       <br />
-      Type: <input name="type" value={account?.type || "empty"} onChange={changeState}></input>
+      Type: <input name="type" value={account?.type || ""} onChange={changeState}></input>
       <br />
-      Number: <input name="number" value={account?.number || "empty"} onChange={changeState}></input>
+      Number: <input name="number" value={account?.number || ""} onChange={changeState}></input>
       <br />
       <br />
       <button onClick={add}>Add</button>

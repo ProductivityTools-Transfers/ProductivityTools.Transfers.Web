@@ -9,12 +9,11 @@ export function TransfersTable() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await api.echo();
-      const data2 = await api.getTransfers();
+      const data2 = await api.getTransfers(null);
       console.log(data2);
       setTransferList(data2);
     };
     fetchData();
-    api.getTransfers();
   }, []);
 
   return (
