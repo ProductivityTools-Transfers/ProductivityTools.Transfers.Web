@@ -3,10 +3,11 @@ import Account from "./Account";
 export default interface Transfer {
   transferId: number | null;
   sourceId: number | null;
-  source: Account |null;
+  source: Account | null;
   targetId: number | null;
   target: Account | null;
   pillow: number | null;
   value: number;
-  transferDay:number|null;
+  transferDay: number | null;
+  childTransfers: number;
 }

@@ -44,6 +44,7 @@ export function TransferEdit() {
     targetId: null,
     value: 0,
     transferDay: null,
+    childTransfers: 0,
   });
 
   const changeState = (e: any) => {

@@ -26,6 +26,7 @@ export function TransfersTable() {
           <th>Value</th>
           <th>TransferDay</th>
           <th>Action</th>
+          <th>Child transfers</th>
         </tr>
       </thead>
       <tbody>
@@ -47,6 +48,7 @@ export function TransfersTable() {
                   Edit
                 </Link>
               </td>
+              <td>{x.childTransfers}</td>
             </tr>
           );
         })}
