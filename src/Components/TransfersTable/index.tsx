@@ -3,19 +3,13 @@ import * as api from "../../Services/apiService";
 import Transfer from "../../Objects/Transfer";
 import { Link } from "react-router-dom";
 
-export function TransfersTable() {
-  const [transferList, setTransferList] = useState<Transfer[]>();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await api.echo();
-      const data2 = await api.getTransfers(null);
-      console.log(data2);
-      setTransferList(data2);
-    };
-    fetchData();
-  }, []);
-
+export function TransfersTable({
+  transferList,
+  drillDown,
+}: {
+  transferList: Transfer[] | undefined;
+  drillDown: (arg: number | null) => void;
+}) {
   return (
     <table>
       <thead>
@@ -48,7 +42,9 @@ export function TransfersTable() {
                   Edit
                 </Link>
               </td>
-              <td>{x.childTransfers}</td>
+              <td>
+                <button onClick={() => drillDown(x.targetId)}>{x.childTransfers}</button>
+              </td>
             </tr>
           );
         })}
@@ -58,7 +54,7 @@ export function TransfersTable() {
           <td></td>
           <td>
             {transferList?.reduce((accumualtor: number, object: Transfer) => {
-              return accumualtor + object.value
+              return accumualtor + object.value;
             }, 0)}
           </td>
           <td></td>
