@@ -6,21 +6,23 @@ import { Link } from "react-router-dom";
 export function TransfersTable({
   transferList,
   drillDown,
+  clearChilds,
 }: {
   transferList: Transfer[] | undefined;
   drillDown: (arg: number | null) => void;
+  clearChilds: (arg: number | null) => void;
 }) {
   return (
-    <table>
+    <table className="pw">
       <thead>
         <tr>
-          <th>TransferId</th>
-          <th>Source</th>
-          <th>Target</th>
-          <th>Value</th>
-          <th>TransferDay</th>
-          <th>Action</th>
-          <th>Child transfers</th>
+          <th style={{ width: "100px" }}>TransferId</th>
+          <th style={{ width: "200px" }}>Source</th>
+          <th style={{ width: "200px" }}>Target</th>
+          <th style={{ width: "100px" }}>Value</th>
+          <th style={{ width: "100px" }}>TransferDay</th>
+          <th style={{ width: "100px" }}>Action</th>
+          <th style={{ width: "200px" }}>Child transfers</th>
         </tr>
       </thead>
       <tbody>
@@ -59,6 +61,9 @@ export function TransfersTable({
           </td>
           <td></td>
           <td></td>
+          <td>
+            <button onClick={() => clearChilds(1)}>Clear childs</button>
+          </td>
         </tr>
       </tbody>
     </table>

@@ -26,9 +26,10 @@ export function Home() {
       const data2 = await api.getTransfers(null);
       console.log(data2);
       const tg = {} as TransferGroup;
-      tg.group=data2
-      console.log(tg)
-      setTransferList((current) => [...current, tg]);
+      tg.sourceId=data2[0].sourceId;
+      tg.group = data2;
+      console.log(tg);
+      setTransferList([tg]);
     };
     fetchData();
   }, []);
@@ -38,21 +39,24 @@ export function Home() {
     console.log(String(targetId));
     const data2 = await api.getTransfers(targetId);
     const tg = {} as TransferGroup;
-    tg.group=data2
-    console.log(tg)
+    tg.group = data2;
+    tg.sourceId=targetId;
+    console.log(tg);
     setTransferList((current) => [...current, tg]);
+  };
+
+  const clearChilds = (x: number | null) => {
+    console.log(transferList);
   };
 
   return (
     <div className="App">
       <span>hello:{hello}</span>
+      <br></br>
+      <Link to="/AccountList">AccountList</Link> <Link to="/TransferEdit">AddTransfer</Link>
       {transferList?.map((x) => {
-        return <TransfersTable transferList={x.group} drillDown={drillDown} />;
+        return <TransfersTable transferList={x.group} drillDown={drillDown} clearChilds={clearChilds} />;
       })}
-
-      {/* <AccountList /> */}
-      <Link to="/AccountList">AccountList</Link>
-      <Link to="/TransferEdit">AddTransfer</Link>
     </div>
   );
 }

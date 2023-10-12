@@ -11,3 +11,42 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+table.pw {
+  font-family: Verdana, Geneva, sans-serif;
+  border: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #F9F9F9;
+}
+table.pw td, table.pw th {
+  border: 0px solid #ECECEC;
+  padding: 0px 8px;
+}
+table.pw tr:nth-child(even) {
+  background: #F2F2F2;
+}
+table.pw thead {
+  background: #4B4894;
+}
+table.pw thead th {
+  font-size: 15px;
+  font-weight: bold;
+  color: #FFFFFF;
+  border-left: 2px solid #434389;
+}
+table.pw thead th:first-child {
+  border-left: none;
+}
+
+p.pw.CES{
+  font-family: Verdana, Geneva, sans-serif;
+  font-size:10px;
+  color:black;
+}
+
+p.pw.footer {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size:8px;
+  color:gray;
+}
