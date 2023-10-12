@@ -2,6 +2,7 @@ import axios from "axios";
 import { config } from "../Config";
 import Account from "../Objects/Account";
 import Transfer from "../Objects/Transfer";
+import { auth } from "../Session/firebase";
 
 async function echo() {
   const response = await axios.get(`${config.pathBase}/Transfer/echo?name=pawel`);
@@ -9,9 +10,20 @@ async function echo() {
 }
 
 async function getTransfers(item: number | null) {
-  const data = { transferId: item };
-  const response = await axios.post(`${config.pathBase}/Transfer/TransferList`, data);
-  return response.data;
+  console.log("auth", auth);
+  console.log("current user", auth.currentUser);
+  axios.defaults.withCredentials = true;
+  let idToken = await auth.currentUser?.getIdToken();
+  if (auth && auth.currentUser && idToken) {
+    const header = {
+      headers: { Authorization: `Bearer ${idToken}` },
+    };
+    const data = { transferId: item };
+    const response = await axios.post(`${config.pathBase}/Transfer/TransferList`, data);
+    return response.data;
+  }
+
+  console.log("getTransfer finished");
 }
 
 async function getTransfer(item: number) {

@@ -62,7 +62,7 @@ export function TransfersTable({
           <td></td>
           <td></td>
           <td>
-            <button onClick={() => clearChilds(1)}>Clear childs</button>
+            {/* <button onClick={() => clearChilds(1)}>Clear childs</button> */}
           </td>
         </tr>
       </tbody>
