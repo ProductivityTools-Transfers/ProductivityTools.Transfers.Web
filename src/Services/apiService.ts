@@ -9,17 +9,22 @@ async function echo() {
   return response.data;
 }
 
+// async function getTransfers(item: number | null) {
+//   const data = { transferId: item };
+//   const response = await axios.post(`${config.pathBase}/Transfer/TransferList`, data);
+//   return response.data;
+// }
+
 async function getTransfers(item: number | null) {
   console.log("auth", auth);
   console.log("current user", auth.currentUser);
-  axios.defaults.withCredentials = true;
   let idToken = await auth.currentUser?.getIdToken();
   if (auth && auth.currentUser && idToken) {
     const header = {
       headers: { Authorization: `Bearer ${idToken}` },
     };
     const data = { transferId: item };
-    const response = await axios.post(`${config.pathBase}/Transfer/TransferList`, data);
+    const response = await axios.post(`${config.pathBase}/Transfer/TransferList`, data, header);
     return response.data;
   }
 
