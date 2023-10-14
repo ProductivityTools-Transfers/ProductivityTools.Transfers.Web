@@ -9,6 +9,7 @@ import { AccountEdit } from "../AccountEdit";
 import { logout } from "../../Session/firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Session/AuthContext";
+import { log } from "console";
 
 export function Home() {
   let navigate = useNavigate();
@@ -36,7 +37,11 @@ export function Home() {
       console.log(tg);
       setTransferList([tg]);
     };
-    if (auth.user) {
+  
+    let token = localStorage.getItem('token');
+    console.log("Home.tsx")
+    console.log(token);
+    if (token) {
       fetchData();
     }
   }, []);
@@ -56,9 +61,10 @@ export function Home() {
     console.log(transferList);
   };
 
-  const buttonLogout = () => {
+  const buttonLogout = (e: any) => {
     logout();
-    navigate("/Login");
+    console.log("Logged out");
+    navigate("/Login")
   };
 
   return (
@@ -68,7 +74,9 @@ export function Home() {
       <Link to="/AccountList">AccountList</Link> <Link to="/TransferEdit">AddTransfer</Link>
       <button onClick={buttonLogout}>logout</button>
       {transferList?.map((x) => {
-        return <TransfersTable key={x.sourceId} transferList={x.group} drillDown={drillDown} clearChilds={clearChilds} />;
+        return (
+          <TransfersTable key={x.sourceId} transferList={x.group} drillDown={drillDown} clearChilds={clearChilds} />
+        );
       })}
     </div>
   );

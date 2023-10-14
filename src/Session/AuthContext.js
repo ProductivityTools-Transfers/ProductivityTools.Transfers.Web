@@ -20,12 +20,12 @@ export function AuthProvider({children}){
         if (user==null)
         {
             console.log("navigate")
-            navigate("/Login");
+            // navigate("/Login");
         }
         //Adds an observer for changes to the signed-in user's ID token, which includes sign-in, sign-out, and token refresh events.
         return auth.onIdTokenChanged(async (user) => {
             if (!user) {
-               // console.log("missing user")
+                console.log("missing user")
                 setUser(null)
             }   
             else {
@@ -34,7 +34,7 @@ export function AuthProvider({children}){
                 setUser(user);
                 localStorage.setItem("token", token);
                 localStorage.setItem("refreshToken", user.refreshToken);
-               // console.log("After getIdToken, onIdTokenChanged method invoked and token in the localstorage updated", token);
+               console.log("After getIdToken, onIdTokenChanged method invoked and token in the localstorage updated", token);
                 toast("New token saved in local storage")
             }
         })

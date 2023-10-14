@@ -12,7 +12,9 @@ export default function Login() {
       // maybe trigger a loading screen
       return;
     }
+    console.log("Login tsx. user:")
     console.log(user);
+    
     if (user) navigate("/home");
   }, [user, loading]);
   return (
