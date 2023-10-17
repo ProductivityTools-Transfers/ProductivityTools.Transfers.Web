@@ -44,6 +44,10 @@ export function Home() {
     if (token) {
       fetchData();
     }
+    else
+    {
+      navigate("/Login")
+    }
   }, []);
 
   const drillDown = async (targetId: number | null) => {
