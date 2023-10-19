@@ -39,6 +39,10 @@ table.pw thead th:first-child {
   border-left: none;
 }
 
+table.pw td.right{
+  text-align: right;
+}
+
 p.pw.CES{
   font-family: Verdana, Geneva, sans-serif;
   font-size:10px;

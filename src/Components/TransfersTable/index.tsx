@@ -32,7 +32,7 @@ export function TransfersTable({
               <td>{x.transferId}</td>
               <td>{x.source?.name}</td>
               <td>{x.target?.name}</td>
-              <td>{x.value}</td>
+              <td className="right">{x.value.toFixed(2)}</td>
               <td>{x.transferDay}</td>
               <td>
                 <Link
@@ -54,10 +54,10 @@ export function TransfersTable({
           <td></td>
           <td></td>
           <td></td>
-          <td>
+          <td className="right">
             {transferList?.reduce((accumualtor: number, object: Transfer) => {
               return accumualtor + object.value;
-            }, 0)}
+            }, 0).toFixed(2)}
           </td>
           <td></td>
           <td></td>
