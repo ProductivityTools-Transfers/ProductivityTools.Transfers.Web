@@ -10,4 +10,5 @@ export default interface Transfer {
   value: number;
   transferDay: number | null;
   childTransfers: number;
+  valueComment:string|null;
 }

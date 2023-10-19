@@ -45,6 +45,7 @@ export function TransferEdit() {
     value: 0,
     transferDay: null,
     childTransfers: 0,
+    valueComment:null
   });
 
   const changeState = (e: any) => {
@@ -100,6 +101,8 @@ export function TransferEdit() {
       Value: <input name="value" value={transfer?.value || ""} onChange={changeState}></input>
       <br />
       Transfer day: <input name="transferDay" value={transfer?.transferDay || ""} onChange={changeNumberState}></input>
+      <br />
+      Value comment: <input name="valueComment" value={transfer?.valueComment || ""} onChange={changeState}></input>
       <br />
       <br />
       <button onClick={add}>Add or update</button>

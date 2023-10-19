@@ -32,7 +32,9 @@ export function TransfersTable({
               <td>{x.transferId}</td>
               <td>{x.source?.name}</td>
               <td>{x.target?.name}</td>
-              <td className="right">{x.value.toFixed(2)}</td>
+              <td className="right">
+                {x.valueComment ? <label title={x.valueComment}><img height="15px" src="icons/i.png"></img></label> : <span></span>} {x.value.toFixed(2)}
+              </td>
               <td>{x.transferDay}</td>
               <td>
                 <Link
@@ -55,15 +57,15 @@ export function TransfersTable({
           <td></td>
           <td></td>
           <td className="right">
-            {transferList?.reduce((accumualtor: number, object: Transfer) => {
-              return accumualtor + object.value;
-            }, 0).toFixed(2)}
+            {transferList
+              ?.reduce((accumualtor: number, object: Transfer) => {
+                return accumualtor + object.value;
+              }, 0)
+              .toFixed(2)}
           </td>
           <td></td>
           <td></td>
-          <td>
-            {/* <button onClick={() => clearChilds(1)}>Clear childs</button> */}
-          </td>
+          <td>{/* <button onClick={() => clearChilds(1)}>Clear childs</button> */}</td>
         </tr>
       </tbody>
     </table>
