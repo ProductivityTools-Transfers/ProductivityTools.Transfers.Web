@@ -4,14 +4,19 @@ import Transfer from "../../Objects/Transfer";
 import { Link } from "react-router-dom";
 
 export function TransfersTable({
+  sourceId,
   transferList,
   drillDown,
   clearChilds,
 }: {
+  sourceId: number | null;
   transferList: Transfer[] | undefined;
   drillDown: (arg: number | null) => void;
   clearChilds: (arg: number | null) => void;
 }) {
+  console.log("key");
+  console.log(sourceId);
+
   return (
     <table className="pw">
       <thead>
@@ -30,10 +35,17 @@ export function TransfersTable({
           return (
             <tr key={x.transferId}>
               <td>{x.transferId}</td>
-              <td>{x.source?.name}</td>
+              <td>{x.source?.name} {x.sourceId}</td>
               <td>{x.target?.name}</td>
               <td className="right">
-                {x.valueComment ? <label title={x.valueComment}><img height="15px" src="icons/i.png"></img></label> : <span></span>} {x.value.toFixed(2)}
+                {x.valueComment ? (
+                  <label title={x.valueComment}>
+                    <img height="15px" src="icons/i.png"></img>
+                  </label>
+                ) : (
+                  <span></span>
+                )}{" "}
+                {x.value.toFixed(2)}
               </td>
               <td>{x.transferDay}</td>
               <td>
@@ -65,7 +77,9 @@ export function TransfersTable({
           </td>
           <td></td>
           <td></td>
-          <td>{/* <button onClick={() => clearChilds(1)}>Clear childs</button> */}</td>
+          <td>
+            <button onClick={() => clearChilds(sourceId)}>Clear childs</button>
+          </td>
         </tr>
       </tbody>
     </table>

@@ -9,7 +9,7 @@ import { AccountEdit } from "../AccountEdit";
 import { logout } from "../../Session/firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Session/AuthContext";
-import { log } from "console";
+import { debug, log } from "console";
 
 export function Home() {
   let navigate = useNavigate();
@@ -37,16 +37,14 @@ export function Home() {
       console.log(tg);
       setTransferList([tg]);
     };
-  
-    let token = localStorage.getItem('token');
-    console.log("Home.tsx")
+
+    let token = localStorage.getItem("token");
+    console.log("Home.tsx");
     console.log(token);
     if (token) {
       fetchData();
-    }
-    else
-    {
-      navigate("/Login")
+    } else {
+      navigate("/Login");
     }
   }, []);
 
@@ -59,16 +57,48 @@ export function Home() {
     tg.sourceId = targetId;
     console.log(tg);
     setTransferList((current) => [...current, tg]);
+    console.log("transfer list");
+    console.log(transferList);
   };
 
-  const clearChilds = (x: number | null) => {
-    console.log(transferList);
+  const removeFromTransferList = (sourceId: number | null, transferListCopy: TransferGroup[]) => {
+    transferList.forEach((x) => {
+      if (x.sourceId == sourceId) {
+        console.log("removing", sourceId);
+        console.log(transferList);
+        transferListCopy = transferListCopy.filter((item) => item !== x);
+      }
+    });
+    return transferListCopy;
+  };
+
+  const clearChildsRecurse = (sourceId: number | null, transferListCopy: TransferGroup[]) => {
+    console.log(transferListCopy);
+    console.log(sourceId);
+    transferListCopy.forEach((table) => {
+      if (table.sourceId == sourceId) {
+        table.group.forEach((transfer) => {
+          console.log("toremove");
+          console.log(transfer.targetId);
+          clearChilds(transfer.targetId);
+          transferListCopy=removeFromTransferList(transfer.targetId, transferListCopy);
+        });
+      }
+    });
+    return transferListCopy;
+  };
+
+  const clearChilds = (sourceId: number | null) => {
+    let transferListCopy = [...transferList];
+    transferListCopy=clearChildsRecurse(sourceId, transferListCopy);
+    console.log("transferlocal copy", transferListCopy);
+    setTransferList(transferListCopy);
   };
 
   const buttonLogout = (e: any) => {
     logout();
     console.log("Logged out");
-    navigate("/Login")
+    navigate("/Login");
   };
 
   return (
@@ -78,8 +108,16 @@ export function Home() {
       <Link to="/AccountList">AccountList</Link> <Link to="/TransferEdit">AddTransfer</Link>
       <button onClick={buttonLogout}>logout</button>
       {transferList?.map((x) => {
+        console.log("map transfer list");
+        console.log(x.sourceId);
         return (
-          <TransfersTable key={x.sourceId} transferList={x.group} drillDown={drillDown} clearChilds={clearChilds} />
+          <TransfersTable
+            key={x.sourceId}
+            sourceId={x.sourceId}
+            transferList={x.group}
+            drillDown={drillDown}
+            clearChilds={clearChilds}
+          />
         );
       })}
     </div>
