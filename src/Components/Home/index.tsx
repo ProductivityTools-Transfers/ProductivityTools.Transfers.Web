@@ -61,38 +61,36 @@ export function Home() {
     console.log(transferList);
   };
 
-  const removeFromTransferList = (sourceId: number | null, transferListCopy: TransferGroup[]) => {
+  const removeFromTransferList = (sourceId: number | null, elementsToRemove: number[]) => {
     transferList.forEach((x) => {
       if (x.sourceId == sourceId) {
         console.log("removing", sourceId);
         console.log(transferList);
-        transferListCopy = transferListCopy.filter((item) => item !== x);
+        elementsToRemove.push(x.sourceId as number);
       }
     });
-    return transferListCopy;
   };
 
-  const clearChildsRecurse = (sourceId: number | null, transferListCopy: TransferGroup[]) => {
-    console.log(transferListCopy);
+  const clearChildsRecurse = (sourceId: number | null, elementsToRemove: number[] ) => {
+    console.log(transferList);
     console.log(sourceId);
-    transferListCopy.forEach((table) => {
+    transferList.forEach((table) => {
       if (table.sourceId == sourceId) {
         table.group.forEach((transfer) => {
           console.log("toremove");
           console.log(transfer.targetId);
-          clearChilds(transfer.targetId);
-          transferListCopy=removeFromTransferList(transfer.targetId, transferListCopy);
+          clearChildsRecurse(transfer.targetId, elementsToRemove);
+          removeFromTransferList(transfer.targetId, elementsToRemove);
         });
       }
     });
-    return transferListCopy;
   };
 
   const clearChilds = (sourceId: number | null) => {
-    let transferListCopy = [...transferList];
-    transferListCopy=clearChildsRecurse(sourceId, transferListCopy);
-    console.log("transferlocal copy", transferListCopy);
-    setTransferList(transferListCopy);
+    let elementsToRemove = [] as number[];
+    clearChildsRecurse(sourceId, elementsToRemove);
+    console.log("elementsToRemove",elementsToRemove);
+    setTransferList(transferList.filter((item) => !elementsToRemove.includes(item.sourceId as number)));
   };
 
   const buttonLogout = (e: any) => {
