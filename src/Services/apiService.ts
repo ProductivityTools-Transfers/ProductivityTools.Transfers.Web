@@ -61,4 +61,9 @@ async function addAccount(account: Account) {
   return response.data;
 }
 
-export { getTransfers, getTransfer, addTransfer, getAccounts, getAccount, addAccount, echo };
+async function getTransfersHistory() {
+  const response = await axios.post(`${config.pathBase}/TransferHistory/List`, {});
+  return response.data;
+}
+
+export { getTransfers, getTransfer, addTransfer, getAccounts, getAccount, addAccount, getTransfersHistory, echo };

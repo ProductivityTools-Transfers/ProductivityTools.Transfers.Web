@@ -31,11 +31,13 @@ export function Home() {
       const data = await api.echo();
       const data2 = await api.getTransfers(null);
       console.log(data2);
-      const tg = {} as TransferGroup;
-      tg.sourceId = data2[0].sourceId;
-      tg.group = data2;
-      console.log(tg);
-      setTransferList([tg]);
+      if (data != null) {
+        const tg = {} as TransferGroup;
+        tg.sourceId = data2[0].sourceId;
+        tg.group = data2;
+        console.log(tg);
+        setTransferList([tg]);
+      }
     };
 
     let token = localStorage.getItem("token");
@@ -71,7 +73,7 @@ export function Home() {
     });
   };
 
-  const clearChildsRecurse = (sourceId: number | null, elementsToRemove: number[] ) => {
+  const clearChildsRecurse = (sourceId: number | null, elementsToRemove: number[]) => {
     console.log(transferList);
     console.log(sourceId);
     transferList.forEach((table) => {
@@ -89,7 +91,7 @@ export function Home() {
   const clearChilds = (sourceId: number | null) => {
     let elementsToRemove = [] as number[];
     clearChildsRecurse(sourceId, elementsToRemove);
-    console.log("elementsToRemove",elementsToRemove);
+    console.log("elementsToRemove", elementsToRemove);
     setTransferList(transferList.filter((item) => !elementsToRemove.includes(item.sourceId as number)));
   };
 
@@ -103,7 +105,9 @@ export function Home() {
     <div className="App">
       <span>hello:{hello}</span>
       <br></br>
-      <Link to="/AccountList">AccountList</Link> <Link to="/TransferEdit">AddTransfer</Link>
+      <Link to="/AccountList">AccountList</Link>
+      <Link to="/TransferEdit">AddTransfer</Link>
+      <Link to="/TransfersHistoryTable">TransfersHistoryTable</Link>
       <button onClick={buttonLogout}>logout</button>
       {transferList?.map((x) => {
         console.log("map transfer list");

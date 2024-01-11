@@ -3,7 +3,7 @@ import * as api from "./Services/apiService";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
 import "./App.css";
-import { TransfersTable } from "./Components/TransfersTable";
+import { TransfersHistoryTable } from "./Components/TransfersHistoryTable";
 import { AccountList } from "./Components/AccountList";
 import { AccountEdit } from "./Components/AccountEdit";
 import { Home } from "./Components/Home";
@@ -23,6 +23,7 @@ function App() {
             <Route path="/Home" element={<Home />} />
             <Route path="/AccountEdit" element={<AccountEdit />} />
             <Route path="/TransferEdit" element={<TransferEdit />} />
+            <Route path="/TransferHistoryTable" element={<TransfersHistoryTable />} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>
