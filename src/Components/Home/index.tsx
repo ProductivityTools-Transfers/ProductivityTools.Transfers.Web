@@ -30,8 +30,9 @@ export function Home() {
     const fetchData = async () => {
       const data = await api.echo();
       const data2 = await api.getTransfers(null);
-      console.log(data2);
-      if (data != null) {
+      console.log("Home useEffect", data2);
+      if (data2) {
+        console.log("entered ifs", data2)
         const tg = {} as TransferGroup;
         tg.sourceId = data2[0].sourceId;
         tg.group = data2;

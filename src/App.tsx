@@ -23,7 +23,7 @@ function App() {
             <Route path="/Home" element={<Home />} />
             <Route path="/AccountEdit" element={<AccountEdit />} />
             <Route path="/TransferEdit" element={<TransferEdit />} />
-            <Route path="/TransferHistoryTable" element={<TransfersHistoryTable />} />
+            <Route path="/TransfersHistoryTable" element={<TransfersHistoryTable />} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>
