@@ -8,4 +8,6 @@ export default interface TransferHistory {
   target: string | null;
   value: string | null;
   valueComment: string | null;
+
+  artificalKey: string|null;
 }
