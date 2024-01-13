@@ -83,13 +83,25 @@ export function TransfersHistoryTable() {
             {transferHistoryView?.sort((a, b) => a.artificalKey < b.artificalKey ? -1 : 1)?.map(x =>
 
                 <div>{x.source} - {x.target}
-                            {
-                    x.values.map(v => {
-                        return (
-                            <td>{v.value}</td>
-                        )
-                    })
-                }
+                <table>
+                <thead>
+                            <tr>
+                                {x.values.map((v)=>{
+                                    return (
+                                        <td>{v.date?.toString().slice(0, 10)}</td>
+                                    )
+                                })}
+                            </tr>
+                        </thead>
+                    <tbody>
+                        
+                        <tr>
+                            {x.values.map(v=>
+                                <td>{v.value}</td>
+                            )}
+                        </tr>
+                    </tbody>
+                </table>
                 </div>
 
 
