@@ -69,6 +69,15 @@ async function addTransfer(transfer: Transfer) {
   return callAuthorizedEndpoint(call);
 }
 
+async function transferDelete(item: number) {
+  let call = async (header: any) => {
+    const data = { transferId: item };
+    const response = await axios.post(`${config.pathBase}/Transfer/TransferDelete`, data, header);
+    return response.data;
+  }
+  return callAuthorizedEndpoint(call);
+}
+
 async function getAccounts() {
   const data = { Name: "Proxy" };
   const response = await axios.post(`${config.pathBase}/Account/AccountList`, data);
@@ -106,4 +115,4 @@ async function addTransferHistorySnapshot() {
   return callAuthorizedEndpoint(call);
 }
 
-export { getTransfers, getTransfer, addTransfer, getAccounts, getAccount, addAccount, getTransfersHistory, addTransferHistorySnapshot, echo };
+export { getTransfers, getTransfer, addTransfer, transferDelete, getAccounts, getAccount, addAccount, getTransfersHistory, addTransferHistorySnapshot, echo };

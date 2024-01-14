@@ -2,6 +2,9 @@ import React, { useState, useEffect, useContext } from "react";
 import * as api from "../../Services/apiService";
 import Transfer from "../../Objects/Transfer";
 import { Link } from "react-router-dom";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+
 
 export function TransfersTable({
   sourceId,
@@ -16,6 +19,26 @@ export function TransfersTable({
 }) {
   console.log("key");
   console.log(sourceId);
+
+  const transferDelete = (transferId: number) => {
+    confirmAlert({
+      title: 'Confirm to submit',
+      message: 'Are you sure to do this.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {
+            alert('Click Yes')
+            api.transferDelete(transferId)
+          }
+        },
+        {
+          label: 'No',
+          onClick: () => alert('Click No')
+        }
+      ]
+    });
+  }
 
   return (
     <table className="pw">
@@ -57,6 +80,7 @@ export function TransfersTable({
                 >
                   Edit
                 </Link>
+                <button onClick={() => transferDelete(x?.transferId ?? 0)}>Delete</button>
               </td>
               <td>
                 <button onClick={() => drillDown(x.targetId)}>{x.childTransfers}</button>
@@ -82,6 +106,6 @@ export function TransfersTable({
           </td>
         </tr>
       </tbody>
-    </table>
+    </table >
   );
 }
