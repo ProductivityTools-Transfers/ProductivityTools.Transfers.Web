@@ -55,7 +55,7 @@ async function getTransfers(item: number | null) {
 async function getTransfer(item: number) {
   let call = async (header: any) => {
     const data = { transferId: item };
-    const response = await axios.post(`${config.pathBase}/Transfer/TransferItem`, data);
+    const response = await axios.post(`${config.pathBase}/Transfer/TransferItem`, data, header);
     return response.data;
   }
   return callAuthorizedEndpoint(call);
