@@ -53,15 +53,20 @@ async function getTransfers(item: number | null) {
 }
 
 async function getTransfer(item: number) {
-  const data = { transferId: item };
-  const response = await axios.post(`${config.pathBase}/Transfer/TransferItem`, data);
-  return response.data;
+  let call = async (header: any) => {
+    const data = { transferId: item };
+    const response = await axios.post(`${config.pathBase}/Transfer/TransferItem`, data);
+    return response.data;
+  }
+  return callAuthorizedEndpoint(call);
 }
 
 async function addTransfer(transfer: Transfer) {
-  const data = { Name: "Proxy" };
-  const response = await axios.post(`${config.pathBase}/Transfer/TransferEdit`, transfer);
-  return response.data;
+  let call = async (header: any) => {
+    const response = await axios.post(`${config.pathBase}/Transfer/TransferEdit`, transfer, header);
+    return response.data;
+  }
+  return callAuthorizedEndpoint(call);
 }
 
 async function getAccounts() {
@@ -71,9 +76,12 @@ async function getAccounts() {
 }
 
 async function getAccount(item: number) {
-  const data = { accountId: item };
-  const response = await axios.post(`${config.pathBase}/Account/AccountItem`, data);
-  return response.data;
+  let call = async (header: any) => {
+    const data = { accountId: item };
+    const response = await axios.post(`${config.pathBase}/Account/AccountItem`, data);
+    return response.data;
+  }
+  return callAuthorizedEndpoint(call);
 }
 
 async function addAccount(account: Account) {
