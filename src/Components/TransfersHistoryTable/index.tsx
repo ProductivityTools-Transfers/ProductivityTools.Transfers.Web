@@ -75,33 +75,39 @@ export function TransfersHistoryTable() {
         fetchData();
     }, [])
 
+    const generateSnapshot = async () => {
+        var r = await api.addTransferHistorySnapshot();
+
+    }
+
     console.log("transferhistory", transferHistory)
 
     return (
         <div>TransferHistoryTable
+            <button onClick={generateSnapshot}>Generate Snapshot</button>
 
             {transferHistoryView?.sort((a, b) => a.artificalKey < b.artificalKey ? -1 : 1)?.map(x =>
 
                 <div>{x.source} - {x.target}
-                <table>
-                <thead>
+                    <table>
+                        <thead>
                             <tr>
-                                {x.values.map((v)=>{
+                                {x.values.map((v) => {
                                     return (
                                         <td>{v.date?.toString().slice(0, 10)}</td>
                                     )
                                 })}
                             </tr>
                         </thead>
-                    <tbody>
-                        
-                        <tr>
-                            {x.values.map(v=>
-                                <td>{v.value}</td>
-                            )}
-                        </tr>
-                    </tbody>
-                </table>
+                        <tbody>
+
+                            <tr>
+                                {x.values.map(v =>
+                                    <td>{v.value}</td>
+                                )}
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
 

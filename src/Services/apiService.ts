@@ -15,6 +15,27 @@ async function echo() {
 //   return response.data;
 // }
 
+async function callAuthorizedEndpoint(call: any) {
+  console.log("auth", auth);
+  console.log("current user", auth.currentUser);
+  let idToken = await auth.currentUser?.getIdToken();
+  if (auth && auth.currentUser && idToken) {
+    const header = {
+      headers: { Authorization: `Bearer ${idToken}` },
+    };
+    try {
+      const result = await call(header);
+      return result;
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    console.log("User not authenticated");
+  }
+}
+
+
+
 async function getTransfers(item: number | null) {
   console.log("auth", auth);
   console.log("current user", auth.currentUser);
@@ -62,8 +83,19 @@ async function addAccount(account: Account) {
 }
 
 async function getTransfersHistory() {
-  const response = await axios.post(`${config.pathBase}/TransferHistory/List`, {});
-  return response.data;
+  let call = async (header: any) => {
+    const response = await axios.post(`${config.pathBase}/TransferHistory/List`, {}, header);
+    return response.data;
+  }
+  return callAuthorizedEndpoint(call);
 }
 
-export { getTransfers, getTransfer, addTransfer, getAccounts, getAccount, addAccount, getTransfersHistory, echo };
+async function addTransferHistorySnapshot() {
+  let call = async (header: any) => {
+    const response = await axios.post(`${config.pathBase}/TransferHistory/AddSnapshot`, {}, header);
+    return response.data;
+  }
+  return callAuthorizedEndpoint(call);
+}
+
+export { getTransfers, getTransfer, addTransfer, getAccounts, getAccount, addAccount, getTransfersHistory, addTransferHistorySnapshot, echo };
