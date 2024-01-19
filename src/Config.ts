@@ -18,4 +18,5 @@ const prod = {
   //clientRoot : 'https://meetingsweb.z13.web.core.windows.net/',
 };
 
-export const config: Config = process.env.NODE_ENV === "development" ? dev : prod;
+export const config: Config = process.env.NODE_ENV === "development" ? prod : prod;
+//export const config: Config = process.env.NODE_ENV === "development" ? dev: prod;

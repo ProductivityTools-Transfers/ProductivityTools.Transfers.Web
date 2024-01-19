@@ -41,7 +41,7 @@ export function TransfersTable({
   }
 
   const getPillow = (transfer: Transfer) => {
-    if (transfer.target?.pillow) {
+    if (transfer.target !=undefined && transfer.target.pillow !=undefined) {
       return (
         <label title="Pillow">
            <span>({transfer.target?.pillow}</span>)
