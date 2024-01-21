@@ -87,7 +87,8 @@ async function getAccounts() {
 async function getAccount(item: number) {
   let call = async (header: any) => {
     const data = { accountId: item };
-    const response = await axios.post(`${config.pathBase}/Account/AccountItem`, data);
+
+    const response = await axios.post(`${config.pathBase}/Account/AccountItem`, data, header);
     return response.data;
   }
   return callAuthorizedEndpoint(call);
