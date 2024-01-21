@@ -47,6 +47,7 @@ export function TransfersTable({
           <th style={{ width: "100px" }}>TransferId</th>
           <th style={{ width: "200px" }}>Source</th>
           <th style={{ width: "200px" }}>Target</th>
+          <th style={{ width: "200px" }}>TargetTag</th>
           <th style={{ width: "100px" }}>Value</th>
           <th style={{ width: "100px" }}>TransferDay</th>
           <th style={{ width: "100px" }}>Action</th>
@@ -60,6 +61,7 @@ export function TransfersTable({
               <td>{x.transferId}</td>
               <td>{x.source?.name} {x.sourceId}</td>
               <td>{x.target?.name}</td>
+              <td>{x.targetTag}</td>
               <td className="right">
                 {x.valueComment ? (
                   <label title={x.valueComment}>
@@ -89,6 +91,7 @@ export function TransfersTable({
           );
         })}
         <tr>
+          <td></td>
           <td></td>
           <td></td>
           <td></td>

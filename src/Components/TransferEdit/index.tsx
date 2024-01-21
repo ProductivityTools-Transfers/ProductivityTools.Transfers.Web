@@ -42,10 +42,11 @@ export function TransferEdit() {
     source: null,
     target: null,
     targetId: null,
+    targetTag: null,
     value: 0,
     transferDay: null,
     childTransfers: 0,
-    valueComment:null
+    valueComment: null
   });
 
   const changeState = (e: any) => {
@@ -98,6 +99,9 @@ export function TransferEdit() {
         })}
       </select>{" "}
       <br />
+      Target tag: <input name="targetTag" value={transfer?.targetTag || ""} onChange={changeState}></input>
+
+      <br />
       Value: <input name="value" value={transfer?.value || ""} onChange={changeState}></input>
       <br />
       Transfer day: <input name="transferDay" value={transfer?.transferDay || ""} onChange={changeNumberState}></input>
@@ -117,6 +121,8 @@ export function TransferEdit() {
         targetid: {transfer?.targetId}
         <br />
         target: {transfer?.targetId}
+        <br />
+        target: {transfer?.targetTag}
         <br />
         value: {transfer?.value}
         <br />
