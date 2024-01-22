@@ -37,7 +37,6 @@ export function TransferEdit() {
 
   const [transfer, setTransfer] = useState<Transfer | null>({
     transferId: null,
-    pillow: 0,
     sourceId: null,
     source: null,
     target: null,
@@ -112,7 +111,6 @@ export function TransferEdit() {
       <button onClick={add}>Add or update</button>
       <div>
         transferId: {transfer?.transferId} <br />
-        pillow: {transfer?.pillow}
         <br />
         sourceId: {transfer?.sourceId}
         <br />

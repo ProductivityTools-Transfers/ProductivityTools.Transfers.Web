@@ -40,13 +40,27 @@ export function TransfersTable({
     });
   }
 
+  const getPillow = (transfer: Transfer) => {
+    if (transfer.target?.pillow) {
+      return (
+        <label title="Pillow">
+           <span>({transfer.target?.pillow}</span>)
+      </label>
+      )
+      return ;
+    }
+    else {
+      return "";
+    }
+  }
+
   return (
     <table className="pw">
       <thead>
         <tr>
           <th style={{ width: "100px" }}>TransferId</th>
           <th style={{ width: "200px" }}>Source</th>
-          <th style={{ width: "200px" }}>Target</th>
+          <th style={{ width: "250px" }}>Target</th>
           <th style={{ width: "200px" }}>TargetTag</th>
           <th style={{ width: "100px" }}>Value</th>
           <th style={{ width: "100px" }}>TransferDay</th>
@@ -60,7 +74,7 @@ export function TransfersTable({
             <tr key={x.transferId}>
               <td>{x.transferId}</td>
               <td>{x.source?.name} {x.sourceId}</td>
-              <td>{x.target?.name}</td>
+              <td>{x.target?.name} {getPillow(x)}</td>
               <td>{x.targetTag}</td>
               <td className="right">
                 {x.valueComment ? (
