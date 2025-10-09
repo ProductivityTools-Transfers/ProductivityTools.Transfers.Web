@@ -10,6 +10,7 @@ import { logout } from "../../Session/firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Session/AuthContext";
 import { debug, log } from "console";
+import { SankeyDiagram } from "../SankeyDiagram";
 
 export function Home() {
   let navigate = useNavigate();
@@ -110,6 +111,7 @@ export function Home() {
       <Link to="/TransferEdit">AddTransfer</Link>
       <Link to="/TransfersHistoryTable">TransfersHistoryTable</Link>
       <button onClick={buttonLogout}>logout</button>
+
       {transferList?.map((x) => {
         console.log("map transfer list");
         console.log(x.sourceId);
@@ -123,6 +125,7 @@ export function Home() {
           />
         );
       })}
+      <SankeyDiagram transferList={transferList} />
     </div>
   );
 }
