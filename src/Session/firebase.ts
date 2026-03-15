@@ -12,13 +12,13 @@ import {
 } from "firebase/auth";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyABGUj0Pb2GO7VYIysnhmFz6qIjvsdnC54",
-    authDomain: "pttransfersprod.firebaseapp.com",
-    projectId: "pttransfersprod",
-    storageBucket: "pttransfersprod.appspot.com",
-    messagingSenderId: "221427138618",
-    appId: "1:221427138618:web:aef09ff2bed52722f33503"
-  };
+    apiKey: "AIzaSyBxY4oT4SZd5r-nZiM1eFFnUCcC3UxgYr4",
+    authDomain: "ptprojectsweb.firebaseapp.com",
+    projectId: "ptprojectsweb",
+    storageBucket: "ptprojectsweb.firebasestorage.app",
+    messagingSenderId: "93484780890",
+    appId: "1:93484780890:web:d81be22d052a54459ff763"
+};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -32,10 +32,10 @@ const signInWithGoogle = async () => {
         console.log("token");
         console.log(res);
         console.log(await res.user.getIdToken());
-        localStorage.setItem("token",await res.user.getIdToken());     
-        
+        localStorage.setItem("token", await res.user.getIdToken());
+
         const user = auth.currentUser;
-       // const token=await user.getIdToken(true);
+        // const token=await user.getIdToken(true);
 
         return res.user;
     } catch (err) {
