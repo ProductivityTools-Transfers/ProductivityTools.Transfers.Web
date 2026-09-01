@@ -9,6 +9,8 @@ import {
     getAuth,
     signInWithPopup,
     signOut,
+    setPersistence,
+    browserLocalPersistence,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -23,19 +25,22 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+setPersistence(auth, browserLocalPersistence).catch((err) => {
+    console.error("Failed to set persistence:", err);
+});
 const isJwtExpired = require('jwt-check-expiration');
 
 const googleProvider = new GoogleAuthProvider();
 const signInWithGoogle = async () => {
     try {
+        await setPersistence(auth, browserLocalPersistence);
         const res = await signInWithPopup(auth, googleProvider);
         console.log("token");
         console.log(res);
-        console.log(await res.user.getIdToken());
-        localStorage.setItem("token", await res.user.getIdToken());
-
-        const user = auth.currentUser;
-        // const token=await user.getIdToken(true);
+        const token = await res.user.getIdToken();
+        console.log(token);
+        localStorage.setItem("token", token);
+        localStorage.setItem("refreshToken", res.user.refreshToken);
 
         return res.user;
     } catch (err) {

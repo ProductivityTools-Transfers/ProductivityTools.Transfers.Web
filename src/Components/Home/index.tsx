@@ -15,25 +15,29 @@ import { SankeyDiagram } from "../SankeyDiagram";
 export function Home() {
   let navigate = useNavigate();
   const [hello, setHello] = useState("nothing received");
+  const [transferList, setTransferList] = useState<TransferGroup[]>([]);
+  const { user, loading } = useAuth();
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchEcho = async () => {
       const data = await api.echo();
       setHello(data);
     };
-    fetchData();
+    fetchEcho();
   }, []);
 
-  const [transferList, setTransferList] = useState<TransferGroup[]>([]);
-  const auth = useAuth();
-
   useEffect(() => {
+    if (loading) return;
+    if (!user) {
+      navigate("/Login");
+      return;
+    }
+
     const fetchData = async () => {
-      const data = await api.echo();
       const data2 = await api.getTransfers(null);
       console.log("Home useEffect", data2);
-      if (data2) {
-        console.log("entered ifs", data2)
+      if (data2 && data2.length > 0) {
+        console.log("entered ifs", data2);
         const tg = {} as TransferGroup;
         tg.sourceId = data2[0].sourceId;
         tg.group = data2;
@@ -42,15 +46,8 @@ export function Home() {
       }
     };
 
-    let token = localStorage.getItem("token");
-    console.log("Home.tsx");
-    console.log(token);
-    if (token) {
-      fetchData();
-    } else {
-      navigate("/Login");
-    }
-  }, []);
+    fetchData();
+  }, [user, loading, navigate]);
 
   const drillDown = async (targetId: number | null) => {
     console.log("drilldown");
@@ -102,6 +99,10 @@ export function Home() {
     console.log("Logged out");
     navigate("/Login");
   };
+
+  if (loading) {
+    return <div className="App">Loading...</div>;
+  }
 
   return (
     <div className="App">

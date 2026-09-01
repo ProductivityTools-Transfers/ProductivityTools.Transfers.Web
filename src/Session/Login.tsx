@@ -15,8 +15,8 @@ export default function Login() {
     console.log("Login tsx. user:")
     console.log(user);
     
-    if (user) navigate("/home");
-  }, [user, loading]);
+    if (user) navigate("/Home");
+  }, [user, loading, navigate]);
   return (
     <div className="login">
       <div className="login__container">

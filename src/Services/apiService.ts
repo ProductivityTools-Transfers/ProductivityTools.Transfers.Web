@@ -15,14 +15,29 @@ async function echo() {
 //   return response.data;
 // }
 
-async function callAuthorizedEndpoint(call: any) {
-  console.log("auth", auth);
-  console.log("current user", auth.currentUser);
-  let idToken = await auth.currentUser?.getIdToken();
-  if (auth && auth.currentUser && idToken) {
-    const header = {
+async function getAuthHeader() {
+  if (auth.authStateReady) {
+    await auth.authStateReady();
+  }
+  const user = auth.currentUser;
+  if (user) {
+    const idToken = await user.getIdToken();
+    return {
       headers: { Authorization: `Bearer ${idToken}` },
     };
+  }
+  const token = localStorage.getItem("token");
+  if (token) {
+    return {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+  }
+  return undefined;
+}
+
+async function callAuthorizedEndpoint(call: any) {
+  const header = await getAuthHeader();
+  if (header) {
     try {
       const result = await call(header);
       return result;
@@ -34,22 +49,13 @@ async function callAuthorizedEndpoint(call: any) {
   }
 }
 
-
-
 async function getTransfers(item: number | null) {
-  console.log("auth", auth);
-  console.log("current user", auth.currentUser);
-  let idToken = await auth.currentUser?.getIdToken();
-  if (auth && auth.currentUser && idToken) {
-    const header = {
-      headers: { Authorization: `Bearer ${idToken}` },
-    };
+  let call = async (header: any) => {
     const data = { transferId: item };
     const response = await axios.post(`${config.pathBase}/Transfer/TransferList`, data, header);
     return response.data;
-  }
-
-  console.log("getTransfer finished");
+  };
+  return callAuthorizedEndpoint(call);
 }
 
 async function getTransfer(item: number) {
