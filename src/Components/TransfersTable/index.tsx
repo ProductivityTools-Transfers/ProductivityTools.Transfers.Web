@@ -20,6 +20,37 @@ export function TransfersTable({
   console.log("key");
   console.log(sourceId);
 
+  const [checkedMap, setCheckedMap] = useState<{ [key: number]: boolean }>({});
+
+  const toggleCheckbox = (transferId: number | null) => {
+    if (transferId == null) return;
+    setCheckedMap((prev) => ({
+      ...prev,
+      [transferId]: !(prev[transferId] ?? true),
+    }));
+  };
+
+  const isChecked = (transfer: Transfer) => {
+    if (transfer.transferId == null) return true;
+    return checkedMap[transfer.transferId] ?? true;
+  };
+
+  const allChecked =
+    transferList != null &&
+    transferList.length > 0 &&
+    transferList.every((x) => isChecked(x));
+
+  const toggleAll = () => {
+    const nextState = !allChecked;
+    const newCheckedMap: { [key: number]: boolean } = {};
+    transferList?.forEach((x) => {
+      if (x.transferId != null) {
+        newCheckedMap[x.transferId] = nextState;
+      }
+    });
+    setCheckedMap(newCheckedMap);
+  };
+
   const transferDelete = (transferId: number) => {
     confirmAlert({
       title: 'Confirm to submit',
@@ -58,6 +89,13 @@ export function TransfersTable({
     <table className="pw">
       <thead>
         <tr>
+          <th style={{ width: "40px" }}>
+            <input
+              type="checkbox"
+              checked={allChecked}
+              onChange={toggleAll}
+            />
+          </th>
           <th style={{ width: "100px" }}>TransferId</th>
           <th style={{ width: "200px" }}>Source</th>
           <th style={{ width: "250px" }}>Target</th>
@@ -72,6 +110,13 @@ export function TransfersTable({
         {transferList?.map((x) => {
           return (
             <tr key={x.transferId}>
+              <td>
+                <input
+                  type="checkbox"
+                  checked={isChecked(x)}
+                  onChange={() => toggleCheckbox(x.transferId)}
+                />
+              </td>
               <td>{x.transferId}</td>
               <td>{x.source?.name} {x.sourceId}</td>
               <td>{x.target?.name} {getPillow(x)}</td>
@@ -109,9 +154,11 @@ export function TransfersTable({
           <td></td>
           <td></td>
           <td></td>
+          <td></td>
           <td className="right">
             {transferList
-              ?.reduce((accumualtor: number, object: Transfer) => {
+              ?.filter((x) => isChecked(x))
+              .reduce((accumualtor: number, object: Transfer) => {
                 return accumualtor + object.value;
               }, 0)
               .toFixed(2)}
